@@ -13,41 +13,53 @@ const organizationSchema = {
     logo: 'https://samalogistics.com/logo.png',
     description: 'شركة سما لوجستيك - خدمات الشحن البحري والجوي والبري والتخليص الجمركي المتكاملة.',
     foundingDate: '2000',
+    email: 'ops@samalogs.com',
     address: {
         '@type': 'PostalAddress',
-        streetAddress: 'شارع التحرير',
-        addressLocality: 'القاهرة',
-        addressRegion: 'القاهرة',
-        postalCode: '11511',
+        streetAddress: '7 أبراج أرض الجولف، حي الشرق',
+        addressLocality: 'Port Said',
+        addressRegion: 'Port Said',
         addressCountry: 'EG',
     },
     contactPoint: [
         {
             '@type': 'ContactPoint',
-            telephone: '+20-2-12345678',
+            telephone: '+201221300036',
             contactType: 'customer service',
             availableLanguage: ['Arabic', 'English'],
             areaServed: ['EG', 'SA', 'AE', 'KW', 'QA', 'BH', 'OM'],
         },
         {
             '@type': 'ContactPoint',
-            telephone: '+20-2-12345679',
+            telephone: '+201210090797',
+            contactType: 'operations',
+            availableLanguage: ['Arabic', 'English'],
+        },
+        {
+            '@type': 'ContactPoint',
+            telephone: '+201283830126',
+            contactType: 'operations',
+            availableLanguage: ['Arabic', 'English'],
+        },
+        {
+            '@type': 'ContactPoint',
+            telephone: '+20663744469',
             contactType: 'sales',
             availableLanguage: ['Arabic', 'English'],
         },
     ],
     sameAs: [
-        'https://www.facebook.com/Samallogseg/',
+        'https://www.facebook.com/Samalogistics.eg',
+        'https://www.instagram.com/sama_logistics_eg',
         'https://www.linkedin.com/company/sama-logistic',
-        'https://twitter.com/samalogistics',
-        'https://www.instagram.com/samalogistics',
+        'https://www.tiktok.com/@sama.logistics.eg',
     ],
     areaServed: {
         '@type': 'GeoCircle',
         geoMidpoint: {
             '@type': 'GeoCoordinates',
-            latitude: 30.0444,
-            longitude: 31.2357,
+            latitude: 31.2509721,
+            longitude: 32.2930159,
         },
         geoRadius: '5000 km',
     },
@@ -61,26 +73,33 @@ const localBusinessSchema = {
     name: 'سما لوجستيك | Sama Logistics',
     image: 'https://samalogistics.com/og-image.jpg',
     priceRange: '$$',
+    email: 'ops@samalogs.com',
     address: {
         '@type': 'PostalAddress',
-        streetAddress: 'شارع التحرير',
-        addressLocality: 'القاهرة',
-        addressRegion: 'القاهرة',
-        postalCode: '11511',
+        streetAddress: '7 أبراج أرض الجولف، حي الشرق',
+        addressLocality: 'Port Said',
+        addressRegion: 'Port Said',
         addressCountry: 'EG',
     },
     geo: {
         '@type': 'GeoCoordinates',
-        latitude: 30.0444,
-        longitude: 31.2357,
+        latitude: 31.2509721,
+        longitude: 32.2930159,
     },
     url: 'https://samalogistics.com',
-    telephone: '+20-2-12345678',
+    hasMap: 'https://www.google.com/maps/place/Sama+Logistics/@31.2510921,32.292743,61m/data=!3m1!1e3!4m6!3m5!1s0x14f99d004da964e1:0x86c4303f4082c416!8m2!3d31.2509721!4d32.2930159!16s%2Fg%2F11x8lwxpdg',
+    telephone: '+201221300036',
+    sameAs: [
+        'https://www.facebook.com/Samalogistics.eg',
+        'https://www.instagram.com/sama_logistics_eg',
+        'https://www.linkedin.com/company/sama-logistic',
+        'https://www.tiktok.com/@sama.logistics.eg',
+    ],
     openingHoursSpecification: [
         {
             '@type': 'OpeningHoursSpecification',
-            dayOfWeek: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday'],
-            opens: '08:00',
+            dayOfWeek: ['Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday'],
+            opens: '09:00',
             closes: '18:00',
         },
     ],
@@ -101,8 +120,8 @@ const serviceSchema = {
         '@type': 'GeoCircle',
         geoMidpoint: {
             '@type': 'GeoCoordinates',
-            latitude: 30.0444,
-            longitude: 31.2357,
+            latitude: 31.2509721,
+            longitude: 32.2930159,
         },
         geoRadius: '5000 km',
     },
@@ -150,61 +169,13 @@ const serviceSchema = {
     },
 };
 
-// FAQ Schema
-const faqSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: [
-        {
-            '@type': 'Question',
-            name: 'ما هي أنواع الشحن المتوفرة؟',
-            acceptedAnswer: {
-                '@type': 'Answer',
-                text: 'نوفر خدمات الشحن البحري والجوي والبري، بالإضافة إلى خدمات التخليص الجمركي والتخزين.',
-            },
-        },
-        {
-            '@type': 'Question',
-            name: 'كيف يمكنني تتبع شحنتي؟',
-            acceptedAnswer: {
-                '@type': 'Answer',
-                text: 'يمكنك تتبع شحنتك من خلال إدخال رقم التتبع في صفحة التتبع على موقعنا أو التواصل مع فريق خدمة العملاء.',
-            },
-        },
-        {
-            '@type': 'Question',
-            name: 'ما هي مناطق التغطية؟',
-            acceptedAnswer: {
-                '@type': 'Answer',
-                text: 'نغطي أكثر من 50 دولة حول العالم، مع تركيز خاص على منطقة الشرق الأوسط وشمال أفريقيا وآسيا وأوروبا.',
-            },
-        },
-        {
-            '@type': 'Question',
-            name: 'كم تستغرق عملية التخليص الجمركي؟',
-            acceptedAnswer: {
-                '@type': 'Answer',
-                text: 'عادةً ما تستغرق عملية التخليص الجمركي من 24 إلى 72 ساعة حسب نوع البضائع والإجراءات المطلوبة.',
-            },
-        },
-    ],
-};
-
-// WebSite Schema for Search
+// WebSite Schema
 const websiteSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     url: 'https://samalogistics.com',
     name: 'سما لوجستيك',
     alternateName: 'Sama Logistics',
-    potentialAction: {
-        '@type': 'SearchAction',
-        target: {
-            '@type': 'EntryPoint',
-            urlTemplate: 'https://samalogistics.com/search?q={search_term_string}',
-        },
-        'query-input': 'required name=search_term_string',
-    },
 };
 
 // BreadcrumbList Schema
@@ -254,16 +225,6 @@ export default function JsonLd() {
                 strategy="afterInteractive"
             />
 
-            {/* FAQ Schema */}
-            <Script
-                id="faq-schema"
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{
-                    __html: JSON.stringify(faqSchema),
-                }}
-                strategy="afterInteractive"
-            />
-
             {/* WebSite Schema */}
             <Script
                 id="website-schema"
@@ -292,7 +253,6 @@ export {
     organizationSchema,
     localBusinessSchema,
     serviceSchema,
-    faqSchema,
     websiteSchema,
     breadcrumbSchema,
 };

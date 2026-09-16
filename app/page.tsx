@@ -31,6 +31,16 @@ export async function generateMetadata(): Promise<Metadata> {
             description,
             type: 'website',
         },
+        twitter: {
+            card: 'summary_large_image',
+            title: isArabic
+                ? 'سما لوجستيك | Sama Logistics'
+                : title,
+            description: isArabic
+                ? 'حلول الشحن والتخليص الجمركي المتكاملة - نوصل أعمالك للعالم'
+                : description,
+            images: ['/twitter-image.jpg'],
+        },
     };
 }
 

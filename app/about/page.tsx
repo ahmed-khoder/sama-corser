@@ -280,7 +280,7 @@ export default function AboutPage() {
     return (
         <div className="min-h-screen bg-gray-50 dark:bg-slate-950 overflow-hidden">
             {/* Hero Section with Parallax */}
-            <section ref={heroRef} className="relative min-h-[85vh] pt-20 flex flex-col md:flex-row md:items-center overflow-hidden">
+            <section ref={heroRef} className="relative min-h-[85vh] pt-20 flex flex-col md:flex-row md:items-stretch overflow-hidden">
                 {/* Background Slideshow → z-0 */}
                 {heroSlides.length > 0 && (
                     <motion.div style={{ scale: heroScale }} className="absolute inset-0 overflow-hidden z-0">
@@ -306,17 +306,17 @@ export default function AboutPage() {
 
                 <motion.div
                     style={{ opacity: heroOpacity }}
-                    className="container mx-auto px-4 relative z-20 flex-1 flex flex-col md:block pb-2 md:pb-0"
+                    className="container mx-auto px-4 relative z-20 flex-1 flex flex-col md:flex md:items-stretch pb-2 md:pb-0"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: heroLoading ? 0 : 1 }}
                     transition={{ duration: 0.3 }}
                 >
-                    <div className="flex flex-col lg:grid lg:grid-cols-2 gap-16 lg:items-center min-h-[60vh] flex-1 lg:flex-none">
+                    <div className="flex flex-col lg:grid lg:grid-cols-2 gap-16 lg:items-stretch flex-1 w-full md:py-6">
                         <motion.div
                             initial={{ opacity: 0, x: isRTL ? 50 : -50 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.8 }}
-                            className={`max-w-2xl relative flex flex-col flex-1 lg:flex-none ${isRTL ? 'text-right lg:order-2' : 'text-left'}`}
+                            className={`max-w-2xl relative flex flex-col flex-1 md:justify-between ${isRTL ? 'text-right lg:order-2' : 'text-left'}`}
                         >
 
                             {/* Title + Description — centered on mobile, normal flow on desktop */}
@@ -379,59 +379,62 @@ export default function AboutPage() {
                                 </motion.p>
                             </div>
 
-                            {/* CTA Buttons — matches Home/Careers pattern */}
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.6 }}
-                                className="flex flex-row gap-3 md:gap-4 order-last md:order-none mt-6 md:mt-0 w-full md:w-auto"
-                                style={{ direction: isRTL ? 'rtl' : 'ltr' }}
-                            >
-                                <motion.a
-                                    href="/contact"
-                                    className="flex-1 md:flex-none px-4 md:px-8 py-3.5 md:py-4 bg-brand-orange hover:bg-brand-darkOrange text-white font-semibold rounded-xl shadow-lg shadow-brand-orange/25 flex items-center justify-center gap-2 transition-colors text-sm md:text-base"
-                                    whileHover={{ scale: 1.03, y: -2 }}
-                                    whileTap={{ scale: 0.98 }}
+                            {/* ── Bottom: Stats + Buttons (Matches Careers/Services logic touching fade by 40% on desktop) ── */}
+                            <div className="mt-auto">
+                                {/* Stats Row — Placed First, Clear of Bottom Gradient */}
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.6 }}
+                                    className="flex flex-wrap gap-8 md:gap-16 mb-6 md:mb-8"
+                                    style={{ direction: isRTL ? 'rtl' : 'ltr' }}
                                 >
-                                    {isRTL ? 'تواصل معنا' : 'Contact Us'}
-                                    {isRTL ? <ArrowLeft className="w-4 h-4 md:w-5 md:h-5" /> : <ArrowRight className="w-4 h-4 md:w-5 md:h-5" />}
-                                </motion.a>
-                                <motion.a
-                                    href="/services"
-                                    className="flex-1 md:flex-none px-4 md:px-8 py-3.5 md:py-4 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white font-semibold rounded-xl flex items-center justify-center gap-2 transition-colors text-sm md:text-base"
-                                    whileHover={{ scale: 1.03, y: -2 }}
-                                    whileTap={{ scale: 0.98 }}
-                                >
-                                    {isRTL ? 'استكشف خدماتنا' : 'Explore Services'}
-                                </motion.a>
-                            </motion.div>
+                                    {[
+                                        { value: '+50', labelAr: 'دولة', labelEn: 'Countries' },
+                                        { value: '24/7', labelAr: 'دعم', labelEn: 'Support' },
+                                        { value: '+10K', labelAr: 'شحنة', labelEn: 'Shipments' },
+                                    ].map((stat, idx) => (
+                                        <motion.div
+                                            key={idx}
+                                            className="text-center"
+                                            initial={{ opacity: 0, scale: 0.8 }}
+                                            animate={{ opacity: 1, scale: 1 }}
+                                            transition={{ delay: 0.7 + idx * 0.1, type: 'spring' }}
+                                            whileHover={{ scale: 1.1, y: -5 }}
+                                        >
+                                            <div className="text-3xl md:text-4xl font-bold text-brand-orange mb-1">{stat.value}</div>
+                                            <div className="text-sm text-gray-400 font-medium">{isRTL ? stat.labelAr : stat.labelEn}</div>
+                                        </motion.div>
+                                    ))}
+                                </motion.div>
 
-                            {/* Stats Row — matches Careers pattern (plain numbers) */}
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.8 }}
-                                className="flex flex-wrap gap-8 md:gap-16 mt-auto lg:mt-0"
-                                style={{ direction: isRTL ? 'rtl' : 'ltr' }}
-                            >
-                                {[
-                                    { value: '+50', labelAr: 'دولة', labelEn: 'Countries' },
-                                    { value: '24/7', labelAr: 'دعم', labelEn: 'Support' },
-                                    { value: '+10K', labelAr: 'شحنة', labelEn: 'Shipments' },
-                                ].map((stat, idx) => (
-                                    <motion.div
-                                        key={idx}
-                                        className="text-center"
-                                        initial={{ opacity: 0, scale: 0.8 }}
-                                        animate={{ opacity: 1, scale: 1 }}
-                                        transition={{ delay: 0.9 + idx * 0.1, type: 'spring' }}
-                                        whileHover={{ scale: 1.1, y: -5 }}
+                                {/* CTA Buttons — Placed Directly Below Stats, Touching Fade by ~40% on Desktop */}
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.8 }}
+                                    className="flex flex-wrap md:flex-row gap-4 md:gap-4 mb-14 md:mb-0 w-full md:w-auto"
+                                    style={{ direction: isRTL ? 'rtl' : 'ltr' }}
+                                >
+                                    <motion.a
+                                        href="/contact"
+                                        className="flex-1 md:flex-none px-4 md:px-8 py-3.5 md:py-4 bg-brand-orange hover:bg-brand-darkOrange text-white font-semibold rounded-xl shadow-lg shadow-brand-orange/25 flex items-center justify-center gap-2 transition-colors text-sm md:text-base"
+                                        whileHover={{ scale: 1.03, y: -2 }}
+                                        whileTap={{ scale: 0.98 }}
                                     >
-                                        <div className="text-3xl md:text-4xl font-bold text-brand-orange mb-1">{stat.value}</div>
-                                        <div className="text-sm text-gray-400 font-medium">{isRTL ? stat.labelAr : stat.labelEn}</div>
-                                    </motion.div>
-                                ))}
-                            </motion.div>
+                                        {isRTL ? 'تواصل معنا' : 'Contact Us'}
+                                        {isRTL ? <ArrowLeft className="w-4 h-4 md:w-5 md:h-5" /> : <ArrowRight className="w-4 h-4 md:w-5 md:h-5" />}
+                                    </motion.a>
+                                    <motion.a
+                                        href="/services"
+                                        className="flex-1 md:flex-none px-4 md:px-8 py-3.5 md:py-4 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white font-semibold rounded-xl flex items-center justify-center gap-2 transition-colors text-sm md:text-base"
+                                        whileHover={{ scale: 1.03, y: -2 }}
+                                        whileTap={{ scale: 0.98 }}
+                                    >
+                                        {isRTL ? 'استكشف خدماتنا' : 'Explore Services'}
+                                    </motion.a>
+                                </motion.div>
+                            </div>
                         </motion.div>
                     </div>
                 </motion.div>
@@ -474,7 +477,7 @@ export default function AboutPage() {
             {/* ══════════════════════════════════════════════════
                 VISION & MISSION — Editorial Cards
                ══════════════════════════════════════════════════ */}
-            <section className="mt-4 md:mt-6 py-10 md:py-14 bg-gray-50 dark:bg-slate-950/50">
+            <section id="vision" className="mt-4 md:mt-6 py-10 md:py-14 bg-gray-50 dark:bg-slate-950/50">
                 <div className="container mx-auto px-5 md:px-8">
                     {/* Section Header */}
                     <motion.div
@@ -664,7 +667,7 @@ export default function AboutPage() {
                                             <motion.img
                                                 key={whyImageIndex}
                                                 src={whyImages[whyImageIndex]?.url}
-                                                alt="Why choose SAMA Logistics — freight expertise in Port Said"
+                                                alt={isRTL ? "لماذا تختار سما لوجيستك — خبرة شحن متكاملة في بورسعيد" : "Why choose SAMA Logistics — freight expertise in Port Said, Egypt"}
                                                 initial={{ opacity: 0, scale: 1.1 }}
                                                 animate={{ opacity: 1, scale: 1 }}
                                                 exit={{ opacity: 0, scale: 0.9 }}
@@ -692,7 +695,7 @@ export default function AboutPage() {
                                     <>
                                         <img
                                             src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=2070&auto=format&fit=crop"
-                                            alt="Container port terminal — Port Said, Egypt"
+                                            alt={isRTL ? "محطة تداول الحاويات — ميناء بورسعيد، مصر" : "Container port terminal — Port Said, Egypt"}
                                             className="w-full h-80 md:h-96 object-cover"
                                         />
                                         <div className="absolute inset-0 bg-gradient-to-t from-black/40 dark:from-marine-900/60 to-transparent" />
@@ -748,7 +751,7 @@ export default function AboutPage() {
             </section>
 
             {/* ===== TEAM + COMPANY PROFILE — Side by Side ===== */}
-            <section className="py-16 md:py-20 bg-gradient-to-br from-gray-100 to-gray-50 dark:from-slate-950 dark:to-slate-900 relative overflow-hidden">
+            <section id="team" className="py-16 md:py-20 bg-gradient-to-br from-gray-100 to-gray-50 dark:from-slate-950 dark:to-slate-900 relative overflow-hidden">
                 <div className="absolute inset-0 pointer-events-none">
                     <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-brand-orange/5 rounded-full blur-[120px]" />
                     <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-marine-400/5 rounded-full blur-[100px]" />

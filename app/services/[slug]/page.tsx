@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { cookies, headers } from 'next/headers';
 import { prisma } from '@/lib/db';
 import ServiceDetailClient from './ServiceDetailClient';
 
@@ -8,18 +9,30 @@ type Props = {
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const cookieStore = await cookies();
+  const headerStore = await headers();
+  const langCookie = cookieStore.get('language')?.value;
+  const acceptLang = headerStore.get('accept-language') || '';
+  const isArabic = langCookie === 'ar' || (!langCookie && acceptLang.startsWith('ar'));
+
   const service = await prisma.service.findUnique({
     where: { slug: params.slug },
   });
   
   if (!service || !service.isActive) {
     return {
-      title: 'خدمة غير موجودة | Service Not Found',
+      title: isArabic ? 'خدمة غير موجودة | Service Not Found' : 'Service Not Found | خدمة غير موجودة',
     };
   }
 
-  const title = service.titleAr || service.titleEn;
-  const description = service.shortDescAr || service.shortDescEn;
+  const title = isArabic
+    ? (service.titleAr || service.titleEn)
+    : (service.titleEn || service.titleAr);
+
+  const description = isArabic
+    ? (service.shortDescAr || service.shortDescEn || service.descriptionAr || '')
+    : (service.shortDescEn || service.shortDescAr || service.descriptionEn || '');
+
   const image = service.image || '';
 
   return {
@@ -36,6 +49,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: title,
       description: description,
       images: image ? [image] : [],
+    },
+    alternates: {
+      canonical: `https://samalogistics.com/services/${params.slug}`,
     },
   };
 }

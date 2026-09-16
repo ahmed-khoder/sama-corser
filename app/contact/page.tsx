@@ -55,9 +55,9 @@ export default function Contact() {
             className="lg:col-span-1 space-y-6"
           >
             <div className="bg-gradient-to-br from-gray-50 to-white dark:from-slate-900 dark:to-slate-800 p-8 rounded-2xl shadow-lg border border-gray-100 dark:border-slate-700">
-              <h3 className="text-lg md:text-xl font-semibold text-marine-900 dark:text-white mb-6">
+              <h2 className="text-lg md:text-xl font-semibold text-marine-900 dark:text-white mb-6">
                 {language === 'ar' ? 'بيانات التواصل' : 'Contact Information'}
-              </h3>
+              </h2>
 
               <div className="space-y-6">
                 
@@ -125,9 +125,9 @@ export default function Contact() {
 
             {/* Working Hours Card */}
             <div className="bg-gradient-to-br from-marine-600 to-marine-800 p-6 rounded-2xl text-white">
-              <h4 className="font-semibold text-lg mb-4">
+              <h3 className="font-semibold text-lg mb-4">
                 {language === 'ar' ? '🕐 ساعات العمل' : '🕐 Working Hours'}
-              </h4>
+              </h3>
 
               {/* Office Hours */}
               <div className="mb-4">
@@ -174,9 +174,9 @@ export default function Contact() {
             className="lg:col-span-2"
           >
             <div className="bg-white dark:bg-slate-900 p-8 md:p-10 rounded-2xl shadow-lg border border-gray-100 dark:border-slate-800">
-              <h3 className="text-xl md:text-2xl font-semibold tracking-tight text-marine-900 dark:text-white mb-8">
+              <h2 className="text-xl md:text-2xl font-semibold tracking-tight text-marine-900 dark:text-white mb-8">
                 {language === 'ar' ? 'أرسل لنا رسالة' : 'Send us a Message'}
-              </h3>
+              </h2>
 
               <ContactForm language={language} defaultType={defaultType} />
             </div>

@@ -129,19 +129,19 @@ export const metadata: Metadata = {
   // Manifest
   manifest: '/site.webmanifest',
 
-  // Alternates (for multilingual SEO)
+  // Alternates
   alternates: {
     canonical: 'https://samalogistics.com',
-    languages: {
-      'ar-EG': 'https://samalogistics.com/ar',
-      'en-US': 'https://samalogistics.com/en',
-    },
   },
 
-  // Verification
-  verification: {
-    google: 'google-site-verification-code',
-  },
+  // Verification — driven by environment variable to avoid emitting placeholder
+  ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || process.env.GOOGLE_SITE_VERIFICATION
+    ? {
+        verification: {
+          google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || process.env.GOOGLE_SITE_VERIFICATION,
+        },
+      }
+    : {}),
 
   // Category
   category: 'Logistics & Transportation',

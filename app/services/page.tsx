@@ -15,10 +15,10 @@ export async function generateMetadata(): Promise<Metadata> {
     const isArabic = langCookie === 'ar' || (!langCookie && acceptLang.startsWith('ar'));
 
     const title = isArabic
-        ? 'خدمات النقل اللوجستي ونقل الحاويات في بورسعيد'
-        : 'Freight, Customs & Transport Services in Port Said';
+        ? 'خدمات الشحن والحلول اللوجستية المتكاملة في مصر | سما لوجيستك'
+        : 'Logistics Services & Freight Forwarding in Egypt | SAMA Logistics';
     const description = isArabic
-        ? 'خدمات احترافية في نقل الحاويات والشحن والتخليص الجمركي في بورسعيد. حلول لوجستية سريعة وآمنة وموثوقة من شركة سما لوجيستك.'
+        ? 'خدمات سما لوجيستك المتكاملة في مصر: الشحن البحري والجوي، النقل البري، التخليص الجمركي، التخزين والحلول اللوجستية من موانئ بورسعيد ودمياط والإسكندرية.'
         : 'Sea freight, land transport, customs clearance, warehousing, and cargo insurance from Port Said, Egypt. Explore SAMA Logistics services.';
 
     return {

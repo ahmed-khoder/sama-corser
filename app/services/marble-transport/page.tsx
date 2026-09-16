@@ -68,13 +68,26 @@ function getSchemaJsonLd(isArabic: boolean) {
             telephone: '+201221300036',
             address: {
                 '@type': 'PostalAddress',
+                streetAddress: '7 أبراج أرض الجولف، حي الشرق',
                 addressLocality: 'Port Said',
                 addressRegion: 'Port Said',
+                postalCode: '8571011',
                 addressCountry: 'EG',
+            },
+            geo: {
+                '@type': 'GeoCoordinates',
+                latitude: 31.2509721,
+                longitude: 32.2930159,
             },
             url: 'https://samalogistics.com',
             foundingDate: '2000',
             priceRange: '$$',
+            openingHoursSpecification: {
+                '@type': 'OpeningHoursSpecification',
+                dayOfWeek: ['Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday'],
+                opens: '09:00',
+                closes: '18:00',
+            },
         },
         serviceType: 'Heavy Load & Marble Transport',
         areaServed: {

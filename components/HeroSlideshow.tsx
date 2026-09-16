@@ -131,12 +131,14 @@ export function HeroSlideshow({
         return () => clearInterval(timer);
     }, [slides.length, interval, onIndexChange]);
 
+    const isArabic = language === 'ar';
+
     if (slides.length === 0) {
         return (
             <div className="absolute inset-0">
                 <Image
                     src={fallbackImage}
-                    alt="Freight and container transport — SAMA Logistics, Port Said"
+                    alt={isArabic ? 'شحن ونقل الحاويات والخدمات اللوجستية في بورسعيد - سما لوجستيك' : 'Freight and container transport in Port Said — SAMA Logistics'}
                     fill
                     priority
                     className="object-cover"
@@ -146,6 +148,9 @@ export function HeroSlideshow({
     }
 
     const currentUrl = imageUrls[currentIndex];
+    const currentSlide = slides[currentIndex];
+    const slideAlt = (isArabic ? currentSlide?.altAr || currentSlide?.titleAr : currentSlide?.altEn || currentSlide?.titleEn)
+        || (isArabic ? 'عمليات الشحن والخدمات اللوجستية - سما لوجستيك' : 'Freight shipping and logistics operations — SAMA Logistics');
 
     return (
         <div className="absolute inset-0 z-0 overflow-hidden">
@@ -162,7 +167,7 @@ export function HeroSlideshow({
                 >
                     <Image
                         src={currentUrl}
-                        alt="SAMA Logistics"
+                        alt={slideAlt}
                         fill
                         priority={currentIndex === 0}
                         loading={currentIndex === 0 ? 'eager' : 'lazy'}

@@ -14,9 +14,9 @@ import { trackEvent } from '@/components/GoogleAnalytics';
 
 // Services Quick View - 3 Main Services (glass cards)
 const services = [
-    { id: 'sea', icon: Ship, titleAr: 'الشحن البحري', titleEn: 'Sea Freight', descAr: 'نقل الحاويات عبر شبكة موانئ عالمية', descEn: 'Container transport via global port network' },
-    { id: 'land', icon: Truck, titleAr: 'النقل البري', titleEn: 'Land Transport', descAr: 'أسطول حديث يغطي مصر والشرق الأوسط', descEn: 'Modern fleet covering Egypt and Middle East' },
-    { id: 'customs', icon: FileCheck, titleAr: 'التخليص الجمركي', titleEn: 'Customs Clearance', descAr: 'إنهاء جميع الإجراءات بسرعة ودقة', descEn: 'Complete all procedures quickly and accurately' },
+    { id: 'sea', icon: Ship, titleAr: 'الشحن البحري', titleEn: 'Sea Freight', descAr: 'نقل الحاويات عبر شبكة موانئ عالمية', descEn: 'Container transport via global port network', href: '/services/sea-freight' },
+    { id: 'land', icon: Truck, titleAr: 'النقل البري', titleEn: 'Land Transport', descAr: 'أسطول حديث يغطي مصر والشرق الأوسط', descEn: 'Modern fleet covering Egypt and Middle East', href: '/services/container-transport' },
+    { id: 'customs', icon: FileCheck, titleAr: 'التخليص الجمركي', titleEn: 'Customs Clearance', descAr: 'إنهاء جميع الإجراءات بسرعة ودقة', descEn: 'Complete all procedures quickly and accurately', href: '/services/customs-clearance' },
 ];
 
 interface HomeHeroSectionProps {
@@ -257,7 +257,7 @@ export default function HomeHeroSection({
                                 style={{ direction: isRTL ? 'rtl' : 'ltr' }}
                             >
                                 {services.map((service, index) => (
-                                    <Link key={index} href={`/services?tab=${service.id}`} className="h-full">
+                                    <Link key={index} href={service.href} className="h-full">
                                         <motion.div
                                             initial={{ opacity: 0, y: 20 }}
                                             animate={{ opacity: 1, y: 0 }}

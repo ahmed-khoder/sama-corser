@@ -141,7 +141,7 @@ export default function ServicesPageClient({ initialServices, initialFleet, init
             {/* ╔══════════════════════════════════════════════════╗
                 ║  SECTION 1 — HERO (CMS-driven, unchanged)       ║
                 ╚══════════════════════════════════════════════════╝ */}
-            <section className="relative min-h-[85vh] pt-20 flex flex-col md:flex-row md:items-center overflow-hidden">
+            <section className="relative min-h-[85vh] pt-20 flex flex-col md:flex-row md:items-stretch overflow-hidden">
                 {/* Background Slideshow → z-0 */}
                 {heroSlides.length > 0 && (
                     <div className="absolute inset-0 overflow-hidden z-0">
@@ -165,13 +165,13 @@ export default function ServicesPageClient({ initialServices, initialFleet, init
                 />
                 <div className={`absolute inset-0 z-[3] pointer-events-none`} style={{ background: `radial-gradient(ellipse 90% 80% at ${isRTL ? '70%' : '30%'} 50%, rgba(0,0,0,0.40) 0%, rgba(0,0,0,0.32) 15%, rgba(0,0,0,0.22) 30%, rgba(0,0,0,0.12) 45%, rgba(0,0,0,0.05) 60%, rgba(0,0,0,0.01) 75%, transparent 90%)` }} />
 
-                <div className="container mx-auto px-4 relative z-20 flex-1 flex flex-col md:block pb-2 md:pb-0">
-                    <div className="flex flex-col lg:grid lg:grid-cols-2 gap-16 lg:items-center min-h-[60vh] flex-1 lg:flex-none">
+                <div className="container mx-auto px-4 relative z-20 flex-1 flex flex-col md:flex md:items-stretch pb-2 md:pb-0">
+                    <div className="flex flex-col lg:grid lg:grid-cols-2 gap-16 lg:items-stretch flex-1 w-full md:py-6">
                         <motion.div
                             initial={{ opacity: 0, x: isRTL ? 50 : -50 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.8 }}
-                            className={`max-w-2xl relative flex flex-col flex-1 lg:flex-none ${isRTL ? 'text-right lg:order-2' : 'text-left'}`}
+                            className={`max-w-2xl relative flex flex-col flex-1 md:justify-between ${isRTL ? 'text-right lg:order-2' : 'text-left'}`}
                         >
                             {/* Title + Description — centered on mobile, normal flow on desktop */}
                             <div className="flex-1 flex flex-col justify-center lg:flex-none lg:block">
@@ -224,55 +224,58 @@ export default function ServicesPageClient({ initialServices, initialFleet, init
                                 </motion.p>
                             </div>
 
-                            {/* CTA Buttons — matches Careers pattern */}
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.6 }}
-                                className="flex flex-wrap gap-4 mb-14 order-last md:order-none mt-6 md:mt-0"
-                                style={{ direction: isRTL ? 'rtl' : 'ltr' }}
-                            >
-                                <motion.a
-                                    href="/contact"
-                                    className="px-8 py-4 bg-brand-orange hover:bg-brand-darkOrange text-white font-semibold rounded-xl shadow-lg shadow-brand-orange/25 flex items-center gap-2 transition-colors"
-                                    whileHover={{ scale: 1.03, y: -2 }}
-                                    whileTap={{ scale: 0.98 }}
+                            {/* ── Bottom: Stats + Buttons (Matches Careers logic touching fade by 40% on desktop) ── */}
+                            <div className="mt-auto">
+                                {/* Stats Row — Placed First, Clear of Bottom Gradient */}
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.6 }}
+                                    className="flex flex-wrap gap-8 md:gap-16 mb-6 md:mb-8"
+                                    style={{ direction: isRTL ? 'rtl' : 'ltr' }}
                                 >
-                                    {isRTL ? 'تواصل معنا' : 'Contact Us'}
-                                    {isRTL ? <ArrowLeft className="w-5 h-5" /> : <ArrowRight className="w-5 h-5" />}
-                                </motion.a>
-                                <motion.a
-                                    href="/about"
-                                    className="px-8 py-4 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white font-semibold rounded-xl flex items-center gap-2 transition-colors"
-                                    whileHover={{ scale: 1.03, y: -2 }}
-                                    whileTap={{ scale: 0.98 }}
-                                >
-                                    {isRTL ? 'من نحن' : 'About Us'}
-                                </motion.a>
-                            </motion.div>
+                                    {stats.map((stat, idx) => (
+                                        <motion.div
+                                            key={idx}
+                                            className="text-center"
+                                            initial={{ opacity: 0, scale: 0.8 }}
+                                            animate={{ opacity: 1, scale: 1 }}
+                                            transition={{ delay: 0.7 + idx * 0.1, type: 'spring' }}
+                                            whileHover={{ scale: 1.1, y: -5 }}
+                                        >
+                                            <div className="text-3xl md:text-4xl font-bold text-brand-orange mb-1">{isRTL ? stat.valueAr : stat.valueEn}</div>
+                                            <div className="text-sm text-gray-400 font-medium">{isRTL ? stat.labelAr : stat.labelEn}</div>
+                                        </motion.div>
+                                    ))}
+                                </motion.div>
 
-                            {/* Stats Row — matches Careers pattern (plain numbers) */}
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.8 }}
-                                className="flex flex-wrap gap-8 md:gap-16 mt-auto lg:mt-0"
-                                style={{ direction: isRTL ? 'rtl' : 'ltr' }}
-                            >
-                                {stats.map((stat, idx) => (
-                                    <motion.div
-                                        key={idx}
-                                        className="text-center"
-                                        initial={{ opacity: 0, scale: 0.8 }}
-                                        animate={{ opacity: 1, scale: 1 }}
-                                        transition={{ delay: 0.9 + idx * 0.1, type: 'spring' }}
-                                        whileHover={{ scale: 1.1, y: -5 }}
+                                {/* CTA Buttons — Placed Directly Below Stats, Touching Fade by ~40% on Desktop */}
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.8 }}
+                                    className="flex flex-wrap md:flex-row gap-4 md:gap-4 mb-14 md:mb-0 w-full md:w-auto"
+                                    style={{ direction: isRTL ? 'rtl' : 'ltr' }}
+                                >
+                                    <motion.a
+                                        href="/contact"
+                                        className="px-8 py-4 bg-brand-orange hover:bg-brand-darkOrange text-white font-semibold rounded-xl shadow-lg shadow-brand-orange/25 flex items-center justify-center gap-2 transition-colors flex-1 md:flex-none text-sm md:text-base"
+                                        whileHover={{ scale: 1.03, y: -2 }}
+                                        whileTap={{ scale: 0.98 }}
                                     >
-                                        <div className="text-3xl md:text-4xl font-bold text-brand-orange mb-1">{isRTL ? stat.valueAr : stat.valueEn}</div>
-                                        <div className="text-sm text-gray-400 font-medium">{isRTL ? stat.labelAr : stat.labelEn}</div>
-                                    </motion.div>
-                                ))}
-                            </motion.div>
+                                        {isRTL ? 'تواصل معنا' : 'Contact Us'}
+                                        {isRTL ? <ArrowLeft className="w-5 h-5" /> : <ArrowRight className="w-5 h-5" />}
+                                    </motion.a>
+                                    <motion.a
+                                        href="/about"
+                                        className="px-8 py-4 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white font-semibold rounded-xl flex items-center justify-center gap-2 transition-colors flex-1 md:flex-none text-sm md:text-base"
+                                        whileHover={{ scale: 1.03, y: -2 }}
+                                        whileTap={{ scale: 0.98 }}
+                                    >
+                                        {isRTL ? 'من نحن' : 'About Us'}
+                                    </motion.a>
+                                </motion.div>
+                            </div>
                         </motion.div>
                     </div>
                 </div>
@@ -467,13 +470,13 @@ export default function ServicesPageClient({ initialServices, initialFleet, init
                         {specializedCargo.map((cargo: any, idx: number) => {
                             const CargoIcon = iconMap[cargo.icon] || Package;
 
-                            // Route mapping — only cargo types with dedicated pages get links
+                            // Route mapping — prioritize cargo.slug when present, with fallback to titleEn mapping
                             const cargoRoutes: Record<string, string> = {
                                 'Marble, Quarry & Mining Transport': '/services/marble-transport',
                                 'Port Container Transport': '/services/container-transport',
                                 'Factory & Industrial Container Transport': '/services/industrial-transport',
                             };
-                            const cargoLink = cargoRoutes[cargo.titleEn] || null;
+                            const cargoLink = (cargo.slug ? `/services/${cargo.slug}` : null) || cargoRoutes[cargo.titleEn] || null;
                             const isHeroCard = cargoLink === '/services/container-transport';
 
                             // Background image — CMS-driven only (no hardcoded fallbacks)
@@ -847,9 +850,9 @@ export default function ServicesPageClient({ initialServices, initialFleet, init
                                         <div className="w-9 h-9 md:w-14 md:h-14 mx-auto mb-2 md:mb-4 bg-gradient-to-br from-brand-orange/15 to-brand-gold/10 rounded-lg md:rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-[0_0_20px_rgba(255,120,0,0.15)]">
                                             <item.icon className="w-4.5 h-4.5 md:w-7 md:h-7 text-brand-orange" />
                                         </div>
-                                        <h4 className="text-[11px] md:text-lg font-bold md:font-semibold text-gray-900 dark:text-white mb-0.5 md:mb-2 leading-tight group-hover:text-brand-orange transition-colors">
+                                        <h3 className="text-[11px] md:text-lg font-bold md:font-semibold text-gray-900 dark:text-white mb-0.5 md:mb-2 leading-tight group-hover:text-brand-orange transition-colors">
                                             {isRTL ? item.titleAr : item.titleEn}
-                                        </h4>
+                                        </h3>
                                         <p className="text-gray-400 dark:text-gray-500 leading-snug md:leading-relaxed text-[9px] md:text-xs line-clamp-2 md:line-clamp-none">
                                             {isRTL ? item.descAr : item.descEn}
                                         </p>

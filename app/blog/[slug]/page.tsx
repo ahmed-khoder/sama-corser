@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { cookies, headers } from 'next/headers';
 import { getPostBySlug } from '@/app/actions/blog';
 import BlogPostClient from './BlogPostClient';
 import type { BlogPost } from '@/types';
@@ -9,19 +10,31 @@ type Props = {
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const cookieStore = await cookies();
+  const headerStore = await headers();
+  const langCookie = cookieStore.get('language')?.value;
+  const acceptLang = headerStore.get('accept-language') || '';
+  const isArabic = langCookie === 'ar' || (!langCookie && acceptLang.startsWith('ar'));
+
   const res = await getPostBySlug(params.slug);
   
   if (!res.success || !res.post) {
     return {
-      title: 'مقال غير موجود | Post Not Found',
+      title: isArabic ? 'مقال غير موجود | Post Not Found' : 'Post Not Found | مقال غير موجود',
     };
   }
 
   const post = res.post;
-  const title = post.titleAr || post.titleEn;
+  const title = isArabic
+    ? (post.titleAr || post.titleEn)
+    : (post.titleEn || post.titleAr);
   
   // Clean HTML if necessary or just slice text
-  const cleanContent = (post.contentAr || post.contentEn || '')
+  const rawDesc = isArabic
+    ? (post.contentAr || post.contentEn || '')
+    : (post.contentEn || post.contentAr || '');
+
+  const cleanContent = rawDesc
     .replace(/<[^>]*>?/gm, '') // Simple strip HTML just in case
     .substring(0, 160) + '...';
 
@@ -41,6 +54,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: title,
       description: cleanContent,
       images: post.image ? [post.image] : [],
+    },
+    alternates: {
+      canonical: `https://samalogistics.com/blog/${params.slug}`,
     },
   };
 }

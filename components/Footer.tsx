@@ -259,11 +259,18 @@ function QuickLinksColumn({ isRTL, language, t }: { isRTL: boolean; language: st
 }
 
 // START FIX — Static marketing services (never depends on dashboard isActive)
+const SPECIALIZED_SERVICES = [
+  { id: 'sp-container', slug: 'container-transport', titleAr: 'نقل الحاويات', titleEn: 'Container Transport' },
+  { id: 'sp-marble', slug: 'marble-transport', titleAr: 'نقل الرخام ومواد البناء', titleEn: 'Marble & Mining Transport' },
+  { id: 'sp-industrial', slug: 'industrial-transport', titleAr: 'نقل البضائع والمعدات الصناعية', titleEn: 'Industrial Transport' },
+];
+
 const FALLBACK_SERVICES = [
-  { id: 'fb-1', slug: 'container-transport', titleAr: 'الشحن البحري', titleEn: 'Sea Freight' },
-  { id: 'fb-2', slug: 'industrial-transport', titleAr: 'النقل البري', titleEn: 'Land Transport' },
-  { id: 'fb-3', slug: 'marble-transport', titleAr: 'الشحن الجوي', titleEn: 'Air Freight' },
-  { id: 'fb-4', slug: 'customs-clearance', titleAr: 'التخليص الجمركي', titleEn: 'Customs Clearance' },
+  { id: 'fb-1', slug: 'sea-freight', titleAr: 'الشحن البحري', titleEn: 'Sea Freight' },
+  { id: 'fb-2', slug: 'customs-clearance', titleAr: 'التخليص الجمركي', titleEn: 'Customs Clearance' },
+  { id: 'fb-3', slug: 'container-transport', titleAr: 'نقل الحاويات', titleEn: 'Container Transport' },
+  { id: 'fb-4', slug: 'marble-transport', titleAr: 'نقل الرخام ومواد البناء', titleEn: 'Marble & Mining Transport' },
+  { id: 'fb-5', slug: 'industrial-transport', titleAr: 'نقل البضائع والمعدات الصناعية', titleEn: 'Industrial Transport' },
 ];
 // END FIX
 
@@ -286,7 +293,9 @@ function ServicesColumn({ isRTL, language, t }: { isRTL: boolean; language: stri
         const { data, timestamp } = JSON.parse(cached);
         // START FIX — validate cached data is a non-empty array
         if (Date.now() - timestamp < 5 * 60 * 1000 && Array.isArray(data) && data.length > 0) {
-          setServices(data);
+          const existingSlugs = new Set(data.map((s: any) => s.slug));
+          const missingSpecialized = SPECIALIZED_SERVICES.filter(sp => !existingSlugs.has(sp.slug));
+          setServices(missingSpecialized.length > 0 ? [...data, ...missingSpecialized] : data);
           setLoading(false);
           return;
         }
@@ -306,14 +315,15 @@ function ServicesColumn({ isRTL, language, t }: { isRTL: boolean; language: stri
       })
       .then(data => {
         if (!Array.isArray(data)) throw new Error('Invalid response');
-        // Use all services from API (no isActive filter)
-        if (data.length > 0) {
-          setServices(data);
-        }
+        // Merge specialized landing pages to ensure permanent discoverability
+        const existingSlugs = new Set(data.map((s: any) => s.slug));
+        const missingSpecialized = SPECIALIZED_SERVICES.filter(sp => !existingSlugs.has(sp.slug));
+        const combined = data.length > 0 ? [...data, ...missingSpecialized] : FALLBACK_SERVICES;
+        setServices(combined);
         // Cache for 5 minutes
         try {
           sessionStorage.setItem('footer_services', JSON.stringify({
-            data: data.length > 0 ? data : FALLBACK_SERVICES,
+            data: combined,
             timestamp: Date.now()
           }));
         } catch { }

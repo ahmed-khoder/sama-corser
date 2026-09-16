@@ -129,11 +129,11 @@ export async function middleware(request: NextRequest) {
     // ── Content Security Policy (CSP) — يمنع حقن سكريبتات خبيثة ────────────
     response.headers.set('Content-Security-Policy', [
         "default-src 'self'",
-        "script-src 'self' 'unsafe-inline' 'unsafe-eval'",  // Next.js يحتاج unsafe-eval في dev
+        "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com",
         "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
         "font-src 'self' https://fonts.gstatic.com",
-        "img-src 'self' data: blob: https://images.unsplash.com https://ui-avatars.com",
-        "connect-src 'self' https://cdn.jsdelivr.net",
+        "img-src 'self' data: blob: https://images.unsplash.com https://ui-avatars.com https://*.google-analytics.com https://*.googletagmanager.com",
+        "connect-src 'self' https://cdn.jsdelivr.net https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com",
         "frame-ancestors 'none'",
     ].join('; '));
 

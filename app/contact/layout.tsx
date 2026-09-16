@@ -24,6 +24,9 @@ export async function generateMetadata(): Promise<Metadata> {
             description,
             type: 'website',
         },
+        alternates: {
+            canonical: 'https://samalogistics.com/contact',
+        },
     };
 }
 

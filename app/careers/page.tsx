@@ -414,9 +414,9 @@ export default function CareersPage() {
                                 <div className="w-20 h-20 bg-gray-100 dark:bg-slate-700 rounded-2xl flex items-center justify-center mx-auto mb-6">
                                     <Briefcase className="w-10 h-10 text-gray-400 dark:text-slate-500" />
                                 </div>
-                                <h4 className="text-xl md:text-2xl font-bold text-marine-900 dark:text-white mb-3">
+                                <h3 className="text-xl md:text-2xl font-bold text-marine-900 dark:text-white mb-3">
                                     {isRTL ? 'لا توجد وظائف شاغرة حالياً' : 'No Open Positions Currently'}
-                                </h4>
+                                </h3>
                                 <p className="text-gray-500 dark:text-gray-400 mb-8 max-w-md mx-auto">
                                     {isRTL ? 'نحن نبحث دائماً عن مواهب مميزة. أرسل سيرتك الذاتية وسنتواصل معك عند توفر فرص جديدة.' : "We're always looking for great talent. Send your CV and we'll reach out when new opportunities arise."}
                                 </p>
@@ -452,9 +452,9 @@ export default function CareersPage() {
                                                                 <Briefcase className="w-5 h-5 text-marine-600 dark:text-marine-400 group-hover:text-white transition-colors" />
                                                             </div>
                                                             <div>
-                                                                <h4 className="text-lg font-bold text-marine-900 dark:text-white mb-2 group-hover:text-brand-orange transition-colors">
+                                                                <h3 className="text-lg font-bold text-marine-900 dark:text-white mb-2 group-hover:text-brand-orange transition-colors">
                                                                     {isRTL ? job.titleAr : job.titleEn}
-                                                                </h4>
+                                                                </h3>
                                                                 <div className="flex flex-wrap gap-2 text-sm">
                                                                     {job.location && (
                                                                         <span className="flex items-center gap-1.5 text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-slate-700/50 px-3 py-1 rounded-full">
