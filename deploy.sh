@@ -53,6 +53,7 @@ fi
 echo ""
 echo "📦 جاري بناء وتشغيل الحاوية عبر Docker Compose..."
 $DOCKER_COMPOSE down --remove-orphans 2>/dev/null || true
+docker rm -f sama-logistics 2>/dev/null || true
 $DOCKER_COMPOSE up -d --build
 
 echo ""
