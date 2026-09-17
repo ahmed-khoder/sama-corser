@@ -10,14 +10,16 @@ services:
     container_name: sama-logistics
     restart: unless-stopped
     ports:
-      - "3030:3000"
+      # Port exposed to host (can be changed in .env or forwarded via Nginx Proxy Manager)
+      - "${PORT:-3030}:3000"
     environment:
       - NODE_ENV=production
       - DATABASE_URL=file:/data/db/dev.db
       - JWT_SECRET=${JWT_SECRET:-sama-logistics-production-secret-change-me}
-      - NEXT_PUBLIC_BASE_URL=http://localhost:3030
+      - NEXT_PUBLIC_BASE_URL=${NEXT_PUBLIC_BASE_URL:-http://localhost:3030}
+      - NEXT_PUBLIC_SITE_URL=${NEXT_PUBLIC_SITE_URL:-https://samalogistics.com}
     volumes:
-      # Persistent data volumes (initialized by entrypoint on first run)
+      # Persistent data volumes (safe against restarts and image updates)
       - sama-db:/data/db
       - sama-images:/data/images
       - sama-uploads:/data/uploads

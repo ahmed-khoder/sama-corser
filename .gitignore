@@ -38,6 +38,10 @@ public/.trash/
 
 # database backups
 prisma/backups/
+prisma/*.backup*
+
+# Local test uploads
+test-*.jpg
 
 # Docker
 docker-compose.override.yml
