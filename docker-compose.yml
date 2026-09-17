@@ -11,12 +11,12 @@ services:
     restart: unless-stopped
     ports:
       # Expose on 0.0.0.0 (all interfaces including external/public IP)
-      - "0.0.0.0:${PORT:-3030}:3000"
+      - "0.0.0.0:${PORT:-3000}:3000"
     environment:
       - NODE_ENV=production
       - DATABASE_URL=file:/data/db/dev.db
       - JWT_SECRET=${JWT_SECRET:-sama-logistics-production-secret-change-me}
-      - NEXT_PUBLIC_BASE_URL=${NEXT_PUBLIC_BASE_URL:-http://localhost:3030}
+      - NEXT_PUBLIC_BASE_URL=${NEXT_PUBLIC_BASE_URL:-http://localhost:3000}
       - NEXT_PUBLIC_SITE_URL=${NEXT_PUBLIC_SITE_URL:-https://samalogistics.com}
     volumes:
       # Persistent data volumes (safe against restarts and image updates)
