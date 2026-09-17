@@ -4,4 +4,9 @@ node_modules
 .env
 *.tsbuildinfo
 prisma/backups
+prisma/*.backup*
 public/.trash
+*.tar.gz
+test-*.jpg
+*.md
+!README.md

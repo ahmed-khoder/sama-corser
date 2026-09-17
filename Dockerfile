@@ -11,7 +11,7 @@ FROM base AS deps
 WORKDIR /app
 
 COPY package.json package-lock.json ./
-RUN npm ci --legacy-peer-deps
+RUN npm ci --legacy-peer-deps && npm cache clean --force
 
 # ── Stage 2: Build the application ──
 FROM base AS builder
